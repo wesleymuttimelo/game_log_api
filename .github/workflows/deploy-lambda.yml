@@ -1,0 +1,47 @@
+name: Deploy Lambda to AWS
+
+on:
+  push:
+    branches:
+      - main # Dispara o deploy ao realizar push na branch "main". Altere conforme necessário.
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout do código
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Configurar Node.js
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.x' # Ajuste para a versão necessária para o seu projeto
+          cache: 'npm'
+
+      # 3. Instalar dependências
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Build da aplicação
+      - name: Build the application
+        run: npm run build
+
+      # 5. Compactar a aplicação (conteúdo da pasta ./dist)
+      - name: Create deployment package
+        run: |
+          cd dist
+          zip -rq ../function.zip . # Compacta todos os arquivos de ./dist em function.zip
+        shell: bash
+
+      # 6. Deploy da Lambda na AWS
+      - name: Deploy to AWS Lambda
+        uses: aws-actions/aws-lambda-deploy@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }} # Substitua pela região usado, ex.: us-east-1
+          function-name: "saveGameInfo" # Altere para o nome da sua função Lambda na AWS
+          zip-file: "function.zip" # Arquivo ZIP gerado contendo o código da aplicação
