@@ -56,4 +56,4 @@ jobs:
       # 8. Deploy da Lambda usando AWS CLI
       - name: Deploy Lambda to AWS
         run: |
-          aws lambda create-function --function-name saveGameInfo --runtime nodejs20.x --zip-file fileb://function.zip --role arn:aws:iam::966194460609:role/saveGameInfo --region ${{ secrets.AWS_REGION }}
+          aws lambda create-function --function-name saveGameInfo --runtime nodejs20.x --handler index.handler --zip-file fileb://function.zip --role arn:aws:iam::966194460609:role/saveGameInfo --region ${{ secrets.AWS_REGION }}
