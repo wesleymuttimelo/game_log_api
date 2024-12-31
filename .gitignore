@@ -1,0 +1,6 @@
+dist/
+build/
+dynamodb_data/
+node_modules/
+./dist
+./build

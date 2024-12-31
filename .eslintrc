@@ -1,0 +1,20 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020, // Versão do ECMAScript suportada
+    "sourceType": "module", // Suporte para import/export
+    "project": "./tsconfig.json" // Ligação com seu projeto TypeScript
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": [
+    "eslint:recommended", // Regras básicas do ESLint
+    "plugin:@typescript-eslint/recommended", // Regras para TypeScript
+    "plugin:@typescript-eslint/recommended-requiring-type-checking", // Regras que exigem type checking
+    "plugin:prettier/recommended" // Integra ESLint com Prettier
+  ],
+  "rules": {
+    // Regras extras se necessário
+    "prettier/prettier": "error", // Marca erros do Prettier como erros do ESLint
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }] // Ignora variáveis iniciadas com "_"
+  }
+}
