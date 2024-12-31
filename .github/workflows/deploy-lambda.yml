@@ -57,5 +57,5 @@ jobs:
       - name: Deploy Lambda to AWS
         run: |
           aws lambda update-function-code \
-            --function-name saveGameInfo \ # Substitua pelo nome da função Lambda
+            --function-name saveGameInfo \ 
             --zip-file fileb://function.zip
